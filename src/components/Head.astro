@@ -1,0 +1,80 @@
+---
+import { getSectionData } from '../lib/manifest-loader';
+
+const heroData = getSectionData('hero');
+const imgSrc = (path: string) => path?.startsWith('http') ? path : `/${path}`;
+
+export interface Props {
+  title: string;
+  seo: {
+    description?: string;
+    keywords?: string[];
+    image?: string;
+    imageAlt?: string;
+    locale?: string;
+    canonicalUrl?: string;
+    structuredData?: Record<string, any>;
+  };
+}
+
+const { title, seo } = Astro.props;
+---
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <title>{title}</title>
+  <meta name="description" content={seo.description} />
+  {seo.keywords && seo.keywords.length > 0 && (
+    <meta name="keywords" content={seo.keywords.join(', ')} />
+  )}
+
+  {seo.canonicalUrl && (
+    <link rel="canonical" href={seo.canonicalUrl} />
+  )}
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={seo.description} />
+  {seo.image && <meta property="og:image" content={seo.image} />}
+  {seo.imageAlt && <meta property="og:image:alt" content={seo.imageAlt} />}
+  {seo.locale && <meta property="og:locale" content={seo.locale} />}
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={seo.description} />
+  {seo.image && <meta name="twitter:image" content={seo.image} />}
+
+  <!-- Hero Image Preload -->
+  {heroData.backgroundImage && (
+    <link rel="preload" as="image" href={imgSrc(heroData.backgroundImage)} fetchpriority="high" />
+  )}
+
+  <!-- JSON-LD: RealEstateListing -->
+  {seo.structuredData && (
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "RealEstateListing",
+      "name": seo.structuredData.propertyName,
+      "description": seo.structuredData.description,
+      ...(seo.structuredData.url && { "url": seo.structuredData.url }),
+      ...(seo.image && { "image": seo.image }),
+      ...(seo.structuredData.address && {
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": seo.structuredData.address.locality,
+          "addressRegion": seo.structuredData.address.region,
+          "addressCountry": seo.structuredData.address.country
+        }
+      })
+    })} />
+  )}
+
+  <!-- Fonts: Cormorant Garamond (serif) + Montserrat (sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>

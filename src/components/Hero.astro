@@ -1,0 +1,239 @@
+i---
+export interface Props {
+  data: {
+    overline?: string;
+    headline: string;
+    subtext: string;
+    heroType: 'image' | 'carousel';
+    backgroundImage: string;
+    images: { src: string; alt: string }[];
+    cta: { text: string; action: 'scroll' | 'modal'; target: string };
+  };
+}
+
+const { data } = Astro.props;
+const imgSrc = (path: string) => path?.startsWith('http') ? path : `/${path}`;
+
+const mainImages =
+  data.heroType === 'carousel' && data.images?.length > 0
+    ? data.images
+    : [{ src: data.backgroundImage || 'defaults/default-hero.jpg', alt: 'Hero' }];
+
+// Side thumbnails reuse the carousel images — no separate field needed
+const sideImages = mainImages.slice(0, 4);
+---
+
+<section class="relative h-screen overflow-hidden" data-dr-section="hero" id="hero">
+  <!-- Hidden field for media type detection -->
+  <input type="hidden" data-dr-field="heroType" value={data.heroType} />
+
+  <!-- Background Slides -->
+  <div class="absolute inset-0" id="hero-slides" data-dr-media-container="hero">
+    {mainImages.map((img, i) => (
+      <div
+        class="hero-slide absolute inset-0 transition-opacity duration-1000"
+        style={`opacity: ${i === 0 ? 1 : 0};`}
+        data-slide={i}
+      >
+        <img
+          src={imgSrc(img.src)}
+          alt={img.alt}
+          class="w-full h-full object-cover"
+          data-dr-field={data.heroType === 'image' ? 'backgroundImage' : `images.${i}.src`}
+        />
+      </div>
+    ))}
+  </div>
+
+  <!-- Gradient Overlays -->
+  <div class="absolute inset-0 bg-gradient-to-r from-black/85 via-black/45 to-black/10 z-10 pointer-events-none"></div>
+  <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20 z-10 pointer-events-none"></div>
+
+  <!-- Main Content -->
+  <div class="relative z-20 h-full flex items-center">
+    <div class="w-full max-w-7xl mx-auto px-8 md:px-12 flex items-center justify-between gap-12">
+
+      <!-- Left: Text Content -->
+      <div class="max-w-xl">
+        <p
+          class="text-[10px] tracking-[0.5em] uppercase mb-6 font-sans text-gold"
+          data-dr-field="overline"
+          data-dr-style="overline"
+        >
+          {data.overline || 'Luxury Residences'}
+        </p>
+        <h1
+          class="font-serif text-5xl md:text-6xl lg:text-7xl leading-[1.05] text-primary mb-6 font-light"
+          data-dr-field="headline"
+          data-dr-style="headline"
+        >
+          {data.headline}
+        </h1>
+        <div class="w-10 h-[1px] bg-gold mb-8"></div>
+        <p
+          class="text-primary/50 text-sm md:text-base font-light leading-relaxed mb-12 max-w-sm"
+          data-dr-field="subtext"
+          data-dr-style="subtext"
+        >
+          {data.subtext}
+        </p>
+
+        <!-- CTA Button -->
+        <button
+          class="hero-cta inline-flex items-center gap-4 bg-gold text-background text-[11px] tracking-[0.3em] uppercase px-8 py-4 hover:bg-primary hover:text-primary-foreground transition-all duration-300 font-medium"
+          data-cta-action={data.cta?.action || 'scroll'}
+          data-cta-target={data.cta?.target || 'tour360'}
+          id="hero-cta-btn"
+        >
+          <span data-dr-field="cta.text" data-dr-style="ctaText">
+            {data.cta?.text || 'Explore Residence'}
+          </span>
+          <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Right: Side Thumbnails Strip (reuses carousel images, no separate field) -->
+      <div 
+        class="hidden lg:flex flex-col gap-3 flex-shrink-0" 
+        id="side-thumbs"
+        style={data.heroType !== 'carousel' || sideImages.length <= 1 ? 'display: none !important;' : ''}
+      >
+        {sideImages.map((img, i) => (
+          <button
+            class="side-thumb-btn group relative w-[88px] h-[60px] overflow-hidden border-2 transition-all duration-300"
+            style={`border-color: ${i === 0 ? '#c9a96e' : 'transparent'};`}
+            data-thumb={i}
+          >
+            <img
+              src={imgSrc(img.src)}
+              alt={img.alt}
+              class="w-full h-full object-cover transition-opacity duration-300"
+              style={`opacity: ${i === 0 ? 1 : 0.45};`}
+              draggable="false"
+            />
+          </button>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom: Slide Indicators -->
+  <div 
+    class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2" 
+    id="hero-dots"
+    style={data.heroType !== 'carousel' || mainImages.length <= 1 ? 'display: none !important;' : ''}
+  >
+    {mainImages.map((_, i) => (
+      <button
+        class="hero-dot h-[2px] transition-all duration-400"
+        style={`width: ${i === 0 ? '40px' : '16px'}; background: ${i === 0 ? '#c9a96e' : 'rgba(255,255,255,0.3)'};`}
+        data-dot={i}
+      ></button>
+    ))}
+  </div>
+
+  <!-- Slide Counter -->
+  <div class="absolute bottom-10 right-8 md:right-12 z-20 font-sans text-[11px] tracking-[0.2em] text-primary/35 select-none">
+    <span id="hero-current">01</span>&thinsp;/&thinsp;<span id="hero-total">{String(mainImages.length).padStart(2, '0')}</span>
+  </div>
+
+  <!-- Scroll Hint -->
+  <div class="absolute bottom-10 left-8 md:left-12 z-20 flex flex-col items-center gap-2 text-primary/30">
+    <div class="w-[1px] h-8 bg-current animate-pulse"></div>
+    <span class="text-[9px] tracking-[0.3em] uppercase font-sans">Scroll</span>
+  </div>
+
+</section>
+
+<script is:inline>
+(function () {
+  function initHero() {
+    var slides = Array.from(document.querySelectorAll('.hero-slide'));
+    var dots = Array.from(document.querySelectorAll('.hero-dot'));
+    var counter = document.getElementById('hero-current');
+    var ctaBtn = document.getElementById('hero-cta-btn');
+    var thumbBtns = Array.from(document.querySelectorAll('.side-thumb-btn'));
+
+    if (!slides.length) return;
+
+    var current = 0;
+    var autoTimer = null;
+
+    function setSlide(index) {
+      var prev = current;
+      current = ((index % slides.length) + slides.length) % slides.length;
+
+      slides[prev].style.opacity = '0';
+      slides[current].style.opacity = '1';
+
+      if (dots[prev]) { dots[prev].style.width = '16px'; dots[prev].style.background = 'rgba(255,255,255,0.3)'; }
+      if (dots[current]) { dots[current].style.width = '40px'; dots[current].style.background = '#c9a96e'; }
+
+      if (counter) counter.textContent = String(current + 1).padStart(2, '0');
+
+      thumbBtns.forEach(function (t, i) {
+        t.style.borderColor = i === current ? '#c9a96e' : 'transparent';
+        var img = t.querySelector('img');
+        if (img) img.style.opacity = i === current ? '1' : '0.45';
+      });
+    }
+
+    function startAuto() { autoTimer = setInterval(function () { setSlide(current + 1); }, 5000); }
+    function resetAuto() { clearInterval(autoTimer); startAuto(); }
+
+    dots.forEach(function (dot, i) {
+      dot.addEventListener('click', function () { setSlide(i); resetAuto(); });
+    });
+
+    thumbBtns.forEach(function (btn, i) {
+      btn.addEventListener('click', function () { setSlide(i % slides.length); resetAuto(); });
+    });
+
+    if (ctaBtn) {
+      ctaBtn.addEventListener('click', function () {
+        var action = ctaBtn.getAttribute('data-cta-action');
+        var target = ctaBtn.getAttribute('data-cta-target');
+
+        if (action === 'scroll' && target) {
+          var el = document.getElementById(target) || document.querySelector('[data-dr-section="' + target + '"]');
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else if (action === 'modal') {
+          var modal = document.getElementById('contact-modal');
+          if (modal) modal.style.display = 'flex';
+        } else if (action === 'link' && target) {
+          window.open(target, '_blank', 'noopener,noreferrer');
+        } else if (action === 'phone' && target) {
+          var num = target.replace(/\s+/g, '');
+          window.location.href = 'tel:' + (num.startsWith('+') || num.startsWith('0') ? num : '+' + num);
+        } else if (action === 'download' && target) {
+          var a = document.createElement('a');
+          a.href = target;
+          a.download = '';
+          a.click();
+        }
+      });
+    }
+
+    // Touch swipe
+    var touchStartX = 0;
+    var heroEl = document.querySelector('[data-dr-section="hero"]');
+    if (heroEl) {
+      heroEl.addEventListener('touchstart', function (e) { touchStartX = e.touches[0].clientX; }, { passive: true });
+      heroEl.addEventListener('touchend', function (e) {
+        var diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) { setSlide(diff > 0 ? current + 1 : current - 1); resetAuto(); }
+      }, { passive: true });
+    }
+
+    if (slides.length > 1) startAuto();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHero);
+  } else {
+    initHero();
+  }
+})();
+</script>

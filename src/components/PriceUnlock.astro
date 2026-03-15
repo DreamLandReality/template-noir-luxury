@@ -1,0 +1,251 @@
+---
+export interface Props {
+  data: {
+    previewState?: 'locked' | 'unlocked';
+    headline: string;
+    priceLabel: string;
+    price: string;
+    priceNote?: string;
+    unlockButtonText: string;
+    brochure: { href: string; buttonText: string };
+    formHeading: string;
+    formSubtext: string;
+    formSubmitText: string;
+    successMessage: string;
+  };
+}
+
+const { data } = Astro.props;
+const isUnlocked = data.previewState === 'unlocked';
+---
+
+<section class="py-24 bg-background" data-dr-section="price-unlock" id="price-unlock">
+  <div class="max-w-7xl mx-auto px-8 md:px-12">
+
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <p class="text-[10px] tracking-[0.5em] uppercase text-gold mb-4 font-sans">Pricing</p>
+      <h2
+        class="font-serif text-4xl md:text-5xl text-primary font-light"
+        data-dr-field="headline"
+        data-dr-style="headline"
+      >
+        {data.headline}
+      </h2>
+    </div>
+
+    <!-- Two Column: Price + Brochure -->
+    <div class="grid md:grid-cols-2 gap-px bg-border max-w-3xl mx-auto">
+
+      <!-- Price Card -->
+      <div class="bg-surface p-12 flex flex-col items-center text-center">
+        <p
+          class="text-[10px] tracking-[0.4em] uppercase text-muted mb-6 font-sans"
+          data-dr-field="priceLabel"
+          data-dr-style="priceLabel"
+        >
+          {data.priceLabel}
+        </p>
+
+        <!-- Blurred Price (revealed after form submit) -->
+        <div class="relative mb-8 w-full">
+          <div
+            id="price-display"
+            class="font-serif text-4xl md:text-5xl text-primary font-light transition-all duration-700"
+            style={isUnlocked ? '' : 'filter: blur(14px); user-select: none; pointer-events: none;'}
+            data-dr-field="price"
+            data-dr-style="price"
+          >
+            {data.price}
+          </div>
+          {data.priceNote && (
+            <p
+              id="price-note"
+              class="text-muted text-[11px] tracking-[0.2em] uppercase mt-2 transition-all duration-700"
+              style={isUnlocked ? '' : 'filter: blur(8px);'}
+              data-dr-field="priceNote"
+            >
+              {data.priceNote}
+            </p>
+          )}
+        </div>
+
+        <!-- Unlock Button -->
+        <div id="unlock-btn-wrapper" style={isUnlocked ? 'display: none;' : ''}>
+          <button
+            id="unlock-price-btn"
+            class="inline-flex items-center gap-3 border border-gold text-gold text-[11px] tracking-[0.3em] uppercase px-8 py-4 hover:bg-gold hover:text-background transition-all duration-300 font-medium font-sans"
+          >
+            <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 11V7a4 4 0 018 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
+            </svg>
+            <span data-dr-field="unlockButtonText" data-dr-style="unlockButtonText">
+              {data.unlockButtonText}
+            </span>
+          </button>
+        </div>
+
+        <!-- Success message (shown after unlock) -->
+        <p
+          id="price-success-msg"
+          class="text-gold text-[11px] tracking-[0.25em] uppercase font-sans"
+          style={isUnlocked ? '' : 'display: none;'}
+          data-dr-field="successMessage"
+        >
+          {data.successMessage}
+        </p>
+      </div>
+
+      <!-- Brochure Card -->
+      <div class="bg-surface p-12 flex flex-col items-center justify-center text-center">
+        <div class="w-10 h-14 border border-border flex items-center justify-center mb-8">
+          <svg class="w-5 h-7 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+        </div>
+        <p class="text-[10px] tracking-[0.4em] uppercase text-muted mb-3 font-sans">Property Brochure</p>
+        <p class="text-primary font-serif text-xl font-light mb-10">Detailed Specifications<br/>& Floor Plans</p>
+        <a
+          href={data.brochure?.href}
+          download
+          class="inline-flex items-center gap-3 bg-primary text-primary-foreground text-[11px] tracking-[0.3em] uppercase px-8 py-4 hover:bg-gold hover:text-background transition-all duration-300 font-medium font-sans"
+          data-dr-field="brochure.href"
+        >
+          <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          </svg>
+          <span data-dr-field="brochure.buttonText" data-dr-style="brochureButtonText">
+            {data.brochure?.buttonText}
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Contact Modal (Unlock Price Gate) ─── -->
+  <div
+    id="contact-modal"
+    class="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm items-center justify-center"
+    style={isUnlocked ? 'display: flex;' : 'display: none;'}
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-heading"
+  >
+    <div class="bg-surface w-full max-w-md mx-4 p-10 relative border border-border">
+
+      <!-- Close -->
+      <button
+        id="modal-close"
+        class="absolute top-5 right-5 text-muted hover:text-primary transition-colors duration-200"
+        aria-label="Close"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <p class="text-[10px] tracking-[0.5em] uppercase text-gold mb-4 font-sans">Exclusive Access</p>
+      <h3
+        id="modal-heading"
+        class="font-serif text-3xl text-primary font-light mb-3"
+        data-dr-field="formHeading"
+      >
+        {data.formHeading}
+      </h3>
+      <p
+        class="text-muted text-sm leading-relaxed mb-8"
+        data-dr-field="formSubtext"
+      >
+        {data.formSubtext}
+      </p>
+
+      <form id="unlock-form" class="space-y-4" novalidate>
+        <input
+          type="text"
+          name="name"
+          placeholder="Full Name"
+          required
+          class="w-full bg-background border border-border text-primary placeholder-muted px-4 py-3 text-sm font-sans focus:border-gold focus:outline-none transition-colors duration-200"
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email Address"
+          required
+          class="w-full bg-background border border-border text-primary placeholder-muted px-4 py-3 text-sm font-sans focus:border-gold focus:outline-none transition-colors duration-200"
+        />
+        <input
+          type="tel"
+          name="phone"
+          placeholder="Phone Number"
+          class="w-full bg-background border border-border text-primary placeholder-muted px-4 py-3 text-sm font-sans focus:border-gold focus:outline-none transition-colors duration-200"
+        />
+        <button
+          type="submit"
+          class="w-full bg-gold text-background text-[11px] tracking-[0.3em] uppercase py-4 font-medium hover:bg-primary hover:text-primary-foreground transition-all duration-300 mt-2 font-sans"
+        >
+          <span data-dr-field="formSubmitText">{data.formSubmitText}</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+</section>
+
+<script is:inline>
+(function () {
+  var unlockBtn = document.getElementById('unlock-price-btn');
+  var modal = document.getElementById('contact-modal');
+  var modalClose = document.getElementById('modal-close');
+  var form = document.getElementById('unlock-form');
+  var priceDisplay = document.getElementById('price-display');
+  var priceNote = document.getElementById('price-note');
+  var unlockBtnWrapper = document.getElementById('unlock-btn-wrapper');
+  var successMsg = document.getElementById('price-success-msg');
+
+  function openModal() {
+    if (modal) { modal.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+  }
+
+  function closeModal() {
+    if (modal) { modal.style.display = 'none'; document.body.style.overflow = ''; }
+  }
+
+  function revealPrice() {
+    if (priceDisplay) { priceDisplay.style.filter = 'none'; priceDisplay.style.pointerEvents = ''; }
+    if (priceNote) priceNote.style.filter = 'none';
+    if (unlockBtnWrapper) unlockBtnWrapper.style.display = 'none';
+    if (successMsg) successMsg.classList.remove('hidden');
+    closeModal();
+  }
+
+  unlockBtn && unlockBtn.addEventListener('click', openModal);
+  modalClose && modalClose.addEventListener('click', closeModal);
+
+  // Backdrop click
+  modal && modal.addEventListener('click', function (e) {
+    if (e.target === modal) closeModal();
+  });
+
+  // Escape key
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && modal && modal.style.display === 'flex') closeModal();
+  });
+
+  form && form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var nameEl = form.querySelector('[name="name"]');
+    var emailEl = form.querySelector('[name="email"]');
+    var name = nameEl ? nameEl.value.trim() : '';
+    var email = emailEl ? emailEl.value.trim() : '';
+
+    if (!name) { if (nameEl) nameEl.style.borderColor = '#ef4444'; return; }
+    if (!email || !email.includes('@')) { if (emailEl) emailEl.style.borderColor = '#ef4444'; return; }
+
+    revealPrice();
+  });
+
+  // Allow hero CTA with action=modal to open this modal
+  window.__openChamageModal = openModal;
+})();
+</script>
