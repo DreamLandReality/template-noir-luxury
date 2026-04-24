@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Tour360 from '../components/Tour360.astro';
+import Amenities from '../components/Amenities.astro';
+import PriceUnlock from '../components/PriceUnlock.astro';
+import Testimonials from '../components/Testimonials.astro';
+import { getSectionData, isSectionEnabled } from '../lib/manifest-loader';
+
+type SeoData = {
+  title?: string;
+  language?: string;
+};
+
+type HeroData = {
+  overline?: string;
+  headline: string;
+  subtext: string;
+  heroType: 'video' | 'image' | 'carousel';
+  backgroundImage: string;
+  images: { src: string; alt: string }[];
+  heroVideo?: string;
+  ctaText: string;
+  ctaAction?: 'scroll' | 'modal' | 'link' | 'phone' | 'download';
+  ctaTarget?: string;
+  mobileLayout?: 'fullscreen' | 'auto';
+  overlayEnabled?: boolean;
+};
+
+type Tour360Data = {
+  headline: string;
+  subtext: string;
+  tourType: 'iframe' | 'video' | 'image';
+  tourUrl: string;
+  tourImage: string;
+  tourVideo: string;
+  videoAutoplay?: boolean;
+  videoMuted?: boolean;
+};
+
+type AmenitiesData = {
+  headline: string;
+  subtext: string;
+  items: {
+    icon: string;
+    label: string;
+    description: string;
+  }[];
+};
+
+type PriceUnlockData = {
+  previewState?: 'locked' | 'modal' | 'unlocked';
+  eyebrow?: string;
+  heading?: string;
+  priceLabel?: string;
+  price: string;
+  unlockButtonText?: string;
+  successNote?: string;
+  modalEyebrow?: string;
+  modalHeading?: string;
+  modalSubtext?: string;
+  modalSubmitText?: string;
+  submissionEndpoint?: string | null;
+  siteToken?: string | null;
+  supabaseAnonKey?: string | null;
+  brochureFile?: string;
+};
+
+type TestimonialsData = {
+  sectionEyebrow?: string;
+  sectionTitle?: string;
+  items: {
+    name: string;
+    photo?: string;
+    text: string;
+    rating: number;
+  }[];
+};
+
+const seoData = getSectionData<SeoData>('seo');
+const heroData = getSectionData<HeroData>('hero');
+const tour360Data = getSectionData<Tour360Data>('tour360');
+const amenitiesData = getSectionData<AmenitiesData>('amenities');
+const priceUnlockData = getSectionData<PriceUnlockData>('price-unlock');
+const testimonialsData = getSectionData<TestimonialsData>('testimonials');
+---
+
+<BaseLayout
+  title={seoData.title || 'Chamage — Luxury Residences'}
+  seo={seoData}
+  transparentNav={true}
+>
+  {isSectionEnabled('hero') && <Hero data={heroData} />}
+  {isSectionEnabled('tour360') && <Tour360 data={tour360Data} />}
+  {isSectionEnabled('amenities') && <Amenities data={amenitiesData} />}
+  {isSectionEnabled('price-unlock') && <PriceUnlock data={priceUnlockData} />}
+  {isSectionEnabled('testimonials') && <Testimonials data={testimonialsData} />}
+</BaseLayout>
