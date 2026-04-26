@@ -6,6 +6,12 @@
     "bucket": "template-assets",
     "prefix": "templates/noir-luxury"
   },
+  "gate": {
+    "sectionId": "price-unlock",
+    "siteToken": null,
+    "submissionEndpoint": null,
+    "supabaseAnonKey": null
+  },
   "collections": [],
   "pages": [
     {
@@ -18,6 +24,8 @@
         "tour360",
         "amenities",
         "price-unlock",
+        "brochure",
+        "contact-form",
         "testimonials"
       ]
     },
@@ -740,12 +748,9 @@
           "modalHeading": { "type": "string", "uiLabel": "Modal Heading", "uiSection": "modal" },
           "modalSubtext": { "type": "string", "uiLabel": "Modal Description", "uiWidget": "textarea", "uiSection": "modal" },
           "modalSubmitText": { "type": "string", "uiLabel": "Modal Submit Button Text", "uiSection": "modal" },
-          "brochureEyebrow": { "type": "string", "uiLabel": "Brochure Eyebrow", "uiSection": "brochure" },
-          "brochureDescription": { "type": "string", "uiLabel": "Brochure Description", "uiSection": "brochure" },
-          "brochureButtonText": { "type": "string", "uiLabel": "Brochure Button Text", "uiSection": "brochure" },
-          "brochureFile": { "type": "string", "uiLabel": "Brochure PDF", "uiWidget": "fileUpload", "uiSection": "brochure" },
           "submissionEndpoint": { "type": "string", "description": "System Injected — Supabase Edge Function URL", "aiIgnore": true },
-          "siteToken": { "type": "string", "description": "System Injected — deployment auth token", "aiIgnore": true }
+          "siteToken": { "type": "string", "description": "System Injected — deployment auth token", "aiIgnore": true },
+          "supabaseAnonKey": { "type": "string", "description": "System Injected — Supabase anon key", "aiIgnore": true }
         }
       },
       "dataType": "object",
@@ -761,10 +766,6 @@
         "modalHeading": "Unlock Pricing",
         "modalSubtext": "Provide your details to instantly reveal exclusive pricing, payment plans, and comprehensive floor layouts.",
         "modalSubmitText": "Reveal Price",
-        "brochureEyebrow": "Property Brochure",
-        "brochureDescription": "Detailed Specifications & Floor Plans",
-        "brochureButtonText": "Download Brochure",
-        "brochureFile": "",
         "submissionEndpoint": null,
         "siteToken": null,
         "supabaseAnonKey": null
@@ -832,6 +833,120 @@
             "rating": 5
           }
         ]
+      }
+    },
+    {
+      "id": "brochure",
+      "name": "Brochure Download",
+      "description": "Standalone brochure download section with document icon and CTA.",
+      "required": false,
+      "enabled": true,
+      "imageSlots": [
+        "brochureFile"
+      ],
+      "schema": {
+        "type": "object",
+        "properties": {
+          "eyebrow": {
+            "type": "string",
+            "uiLabel": "Eyebrow Text",
+            "uiSection": "content"
+          },
+          "heading": {
+            "type": "string",
+            "uiLabel": "Heading",
+            "uiSection": "content"
+          },
+          "body": {
+            "type": "string",
+            "uiLabel": "Description",
+            "uiWidget": "textarea",
+            "uiSection": "content"
+          },
+          "buttonText": {
+            "type": "string",
+            "uiLabel": "Button Text",
+            "uiSection": "content"
+          },
+          "brochureFile": {
+            "type": "string",
+            "uiLabel": "Brochure PDF",
+            "uiWidget": "fileUpload",
+            "uiAccept": "application/pdf",
+            "uiSection": "content"
+          }
+        }
+      },
+      "dataType": "object",
+      "data": {
+        "eyebrow": "Property Brochure",
+        "heading": "Detailed Specifications",
+        "body": "Download our comprehensive brochure featuring floor plans, specifications, and exclusive property details.",
+        "buttonText": "Download Brochure",
+        "brochureFile": ""
+      }
+    },
+    {
+      "id": "contact-form",
+      "name": "Contact Form",
+      "description": "Contact form with name, email, phone, and message fields.",
+      "required": false,
+      "enabled": true,
+      "schema": {
+        "type": "object",
+        "required": [
+          "heading",
+          "submitButton",
+          "successMessage"
+        ],
+        "properties": {
+          "heading": {
+            "type": "string",
+            "uiLabel": "Heading",
+            "uiSection": "content"
+          },
+          "subtext": {
+            "type": "string",
+            "uiLabel": "Subtext",
+            "uiWidget": "textarea",
+            "uiSection": "content"
+          },
+          "submitButton": {
+            "type": "string",
+            "uiLabel": "Submit Button Text",
+            "uiSection": "content"
+          },
+          "successMessage": {
+            "type": "string",
+            "uiLabel": "Success Message",
+            "uiSection": "content"
+          },
+          "submissionEndpoint": {
+            "type": "string",
+            "description": "System Injected — Supabase Edge Function URL",
+            "aiIgnore": true
+          },
+          "siteToken": {
+            "type": "string",
+            "description": "System Injected — deployment auth token",
+            "aiIgnore": true
+          },
+          "supabaseAnonKey": {
+            "type": "string",
+            "description": "System Injected — Supabase anon key",
+            "aiIgnore": true
+          }
+        }
+      },
+      "dataType": "object",
+      "data": {
+        "heading": "Get in Touch",
+        "subtext": "Have questions about this property? Our team is here to help. Fill out the form below and we'll get back to you shortly.",
+        "submitButton": "Send Message",
+        "successMessage": "Thank you! We'll be in touch soon.",
+        "submissionEndpoint": null,
+        "siteToken": null,
+        "supabaseAnonKey": null
       }
     },
     {

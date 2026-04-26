@@ -4,8 +4,10 @@ import Hero from '../components/Hero.astro';
 import Tour360 from '../components/Tour360.astro';
 import Amenities from '../components/Amenities.astro';
 import PriceUnlock from '../components/PriceUnlock.astro';
+import Brochure from '../components/Brochure.astro';
+import ContactForm from '../components/ContactForm.astro';
 import Testimonials from '../components/Testimonials.astro';
-import { getSectionData, isSectionEnabled } from '../lib/manifest-loader';
+import { getSectionData, isSectionEnabled, getGateConfig } from '../lib/manifest-loader';
 
 type SeoData = {
   title?: string;
@@ -63,7 +65,26 @@ type PriceUnlockData = {
   submissionEndpoint?: string | null;
   siteToken?: string | null;
   supabaseAnonKey?: string | null;
+};
+
+type BrochureData = {
+  eyebrow?: string;
+  heading?: string;
+  body?: string;
+  buttonText?: string;
   brochureFile?: string;
+  backgroundImage?: string;
+  backgroundImageAlt?: string;
+};
+
+type ContactFormData = {
+  heading: string;
+  subtext?: string | null;
+  submitButton: string;
+  successMessage: string;
+  submissionEndpoint?: string | null;
+  siteToken?: string | null;
+  supabaseAnonKey?: string | null;
 };
 
 type TestimonialsData = {
@@ -82,17 +103,23 @@ const heroData = getSectionData<HeroData>('hero');
 const tour360Data = getSectionData<Tour360Data>('tour360');
 const amenitiesData = getSectionData<AmenitiesData>('amenities');
 const priceUnlockData = getSectionData<PriceUnlockData>('price-unlock');
+const brochureData = getSectionData<BrochureData>('brochure');
+const contactFormData = getSectionData<ContactFormData>('contact-form');
 const testimonialsData = getSectionData<TestimonialsData>('testimonials');
+const gateConfig = getGateConfig();
 ---
 
 <BaseLayout
   title={seoData.title || 'Chamage — Luxury Residences'}
   seo={seoData}
   transparentNav={true}
+  gateConfig={gateConfig}
 >
   {isSectionEnabled('hero') && <Hero data={heroData} />}
   {isSectionEnabled('tour360') && <Tour360 data={tour360Data} />}
   {isSectionEnabled('amenities') && <Amenities data={amenitiesData} />}
   {isSectionEnabled('price-unlock') && <PriceUnlock data={priceUnlockData} />}
+  {isSectionEnabled('brochure') && <Brochure data={brochureData} />}
+  {isSectionEnabled('contact-form') && <ContactForm data={contactFormData} />}
   {isSectionEnabled('testimonials') && <Testimonials data={testimonialsData} />}
 </BaseLayout>
