@@ -303,16 +303,16 @@ const {
     manifest,
     defaultTheme: {
         colors: {
-            primary: '#ffffff',
-            primaryForeground: '#000000',
-            background: '#0a0a0a',
-            surface: '#171717',
-            muted: '#737373',
-            border: '#262626'
+            primary: '#fafaf9',
+            primaryForeground: '#0c0a09',
+            background: '#0c0a09',
+            surface: '#1c1917',
+            muted: '#78716c',
+            border: '#292524'
         },
         typography: {
             fontSans: "'Inter', sans-serif",
-            fontSerif: "'Playfair Display', serif"
+            fontSerif: "'Cinzel', serif"
         },
         radius: {
             base: '0px'
