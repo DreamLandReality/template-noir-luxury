@@ -8,7 +8,7 @@
   },
   "gate": {
     "sectionId": "price-unlock",
-    "siteToken": null,
+    "siteToken": "demo-noir-luxury-1777193810538",
     "submissionEndpoint": null,
     "supabaseAnonKey": null
   },
@@ -158,9 +158,18 @@
             "uiLabel": "Media Type",
             "uiWidget": "select",
             "options": [
-              { "value": "image", "label": "Single Image" },
-              { "value": "carousel", "label": "Carousel" },
-              { "value": "video", "label": "Video" }
+              {
+                "value": "image",
+                "label": "Single Image"
+              },
+              {
+                "value": "carousel",
+                "label": "Carousel"
+              },
+              {
+                "value": "video",
+                "label": "Video"
+              }
             ],
             "uiOrder": 10,
             "uiSection": "media"
@@ -236,8 +245,14 @@
             "uiWidget": "select",
             "uiSection": "layout",
             "options": [
-              { "value": "fullscreen", "label": "Full Screen" },
-              { "value": "auto", "label": "Auto (Content Height)" }
+              {
+                "value": "fullscreen",
+                "label": "Full Screen"
+              },
+              {
+                "value": "auto",
+                "label": "Auto (Content Height)"
+              }
             ]
           },
           "overlayEnabled": {
@@ -413,8 +428,8 @@
     },
     {
       "id": "tour360",
-      "name": "360\u00b0 Virtual Tour",
-      "description": "Interactive 360\u00b0 tour with iframe, image, or video.",
+      "name": "360° Virtual Tour",
+      "description": "Interactive 360° tour with iframe, image, or video.",
       "required": false,
       "imageSlots": [
         "tourImage"
@@ -559,7 +574,7 @@
       "enabled": true,
       "data": {
         "headline": "Experience Every Corner",
-        "subtext": "Navigate through the residence with our immersive 360\u00b0 virtual tour. Explore the spaces, the details, and the craftsmanship from the comfort of your screen.",
+        "subtext": "Navigate through the residence with our immersive 360° virtual tour. Explore the spaces, the details, and the craftsmanship from the comfort of your screen.",
         "tourType": "video",
         "tourUrl": "",
         "tourImage": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-hero.jpg",
@@ -731,26 +746,89 @@
             "uiLabel": "Preview State",
             "uiWidget": "select",
             "options": [
-              { "value": "locked", "label": "Locked (price blurred, unlock button visible)" },
-              { "value": "modal", "label": "Modal Open (contact form visible)" },
-              { "value": "unlocked", "label": "Unlocked (price revealed, success message)" }
+              {
+                "value": "locked",
+                "label": "Locked (price blurred, unlock button visible)"
+              },
+              {
+                "value": "modal",
+                "label": "Modal Open (contact form visible)"
+              },
+              {
+                "value": "unlocked",
+                "label": "Unlocked (price revealed, success message)"
+              }
             ],
             "aiIgnore": true,
             "uiOrder": 0
           },
-          "eyebrow": { "type": "string", "uiLabel": "Eyebrow Text", "uiSection": "content" },
-          "heading": { "type": "string", "uiLabel": "Heading", "uiSection": "content" },
-          "priceLabel": { "type": "string", "uiLabel": "Price Label", "uiSection": "content" },
-          "price": { "type": "string", "uiLabel": "Price", "uiSection": "content" },
-          "unlockButtonText": { "type": "string", "uiLabel": "Unlock Button Text", "uiSection": "content" },
-          "successNote": { "type": "string", "uiLabel": "Post-Unlock Note", "uiWidget": "textarea", "uiSection": "content" },
-          "modalEyebrow": { "type": "string", "uiLabel": "Modal Eyebrow", "uiSection": "modal" },
-          "modalHeading": { "type": "string", "uiLabel": "Modal Heading", "uiSection": "modal" },
-          "modalSubtext": { "type": "string", "uiLabel": "Modal Description", "uiWidget": "textarea", "uiSection": "modal" },
-          "modalSubmitText": { "type": "string", "uiLabel": "Modal Submit Button Text", "uiSection": "modal" },
-          "submissionEndpoint": { "type": "string", "description": "System Injected — Supabase Edge Function URL", "aiIgnore": true },
-          "siteToken": { "type": "string", "description": "System Injected — deployment auth token", "aiIgnore": true },
-          "supabaseAnonKey": { "type": "string", "description": "System Injected — Supabase anon key", "aiIgnore": true }
+          "eyebrow": {
+            "type": "string",
+            "uiLabel": "Eyebrow Text",
+            "uiSection": "content"
+          },
+          "heading": {
+            "type": "string",
+            "uiLabel": "Heading",
+            "uiSection": "content"
+          },
+          "priceLabel": {
+            "type": "string",
+            "uiLabel": "Price Label",
+            "uiSection": "content"
+          },
+          "price": {
+            "type": "string",
+            "uiLabel": "Price",
+            "uiSection": "content"
+          },
+          "unlockButtonText": {
+            "type": "string",
+            "uiLabel": "Unlock Button Text",
+            "uiSection": "content"
+          },
+          "successNote": {
+            "type": "string",
+            "uiLabel": "Post-Unlock Note",
+            "uiWidget": "textarea",
+            "uiSection": "content"
+          },
+          "modalEyebrow": {
+            "type": "string",
+            "uiLabel": "Modal Eyebrow",
+            "uiSection": "modal"
+          },
+          "modalHeading": {
+            "type": "string",
+            "uiLabel": "Modal Heading",
+            "uiSection": "modal"
+          },
+          "modalSubtext": {
+            "type": "string",
+            "uiLabel": "Modal Description",
+            "uiWidget": "textarea",
+            "uiSection": "modal"
+          },
+          "modalSubmitText": {
+            "type": "string",
+            "uiLabel": "Modal Submit Button Text",
+            "uiSection": "modal"
+          },
+          "submissionEndpoint": {
+            "type": "string",
+            "description": "System Injected — Supabase Edge Function URL",
+            "aiIgnore": true
+          },
+          "siteToken": {
+            "type": "string",
+            "description": "System Injected — deployment auth token",
+            "aiIgnore": true
+          },
+          "supabaseAnonKey": {
+            "type": "string",
+            "description": "System Injected — Supabase anon key",
+            "aiIgnore": true
+          }
         }
       },
       "dataType": "object",
@@ -782,7 +860,9 @@
       ],
       "schema": {
         "type": "object",
-        "required": ["items"],
+        "required": [
+          "items"
+        ],
         "properties": {
           "sectionEyebrow": {
             "type": "string",
@@ -806,10 +886,28 @@
             "items": {
               "type": "object",
               "properties": {
-                "name": { "type": "string", "uiLabel": "Name" },
-                "photo": { "type": "string", "uiLabel": "Photo", "uiWidget": "imageUpload" },
-                "text": { "type": "string", "uiLabel": "Testimonial", "uiWidget": "textarea" },
-                "rating": { "type": "number", "uiLabel": "Rating (1-5)", "uiWidget": "slider", "min": 1, "max": 5, "step": 1 }
+                "name": {
+                  "type": "string",
+                  "uiLabel": "Name"
+                },
+                "photo": {
+                  "type": "string",
+                  "uiLabel": "Photo",
+                  "uiWidget": "imageUpload"
+                },
+                "text": {
+                  "type": "string",
+                  "uiLabel": "Testimonial",
+                  "uiWidget": "textarea"
+                },
+                "rating": {
+                  "type": "number",
+                  "uiLabel": "Rating (1-5)",
+                  "uiWidget": "slider",
+                  "min": 1,
+                  "max": 5,
+                  "step": 1
+                }
               }
             }
           }
@@ -1035,7 +1133,7 @@
       "dataType": "object",
       "enabled": true,
       "data": {
-        "copyright": "\u00a9 2025 Chamage. All rights reserved.",
+        "copyright": "© 2025 Chamage. All rights reserved.",
         "branding": "Design by Dream Reality"
       }
     },
@@ -1099,7 +1197,7 @@
           },
           "canonicalUrl": {
             "type": "string",
-            "description": "Canonical URL \u2014 injected at deploy time",
+            "description": "Canonical URL — injected at deploy time",
             "uiLabel": "Canonical URL",
             "aiIgnore": true,
             "editable": false
@@ -1239,8 +1337,8 @@
       "dataType": "object",
       "enabled": true,
       "data": {
-        "title": "Chamage \u2014 Noir Luxury Residence",
-        "description": "An ultra-luxury single-page residence showcasing dark elegance, 360\u00b0 virtual tours, and uncompromising design.",
+        "title": "Chamage — Noir Luxury Residence",
+        "description": "An ultra-luxury single-page residence showcasing dark elegance, 360° virtual tours, and uncompromising design.",
         "keywords": [
           "luxury residence",
           "noir luxury",
