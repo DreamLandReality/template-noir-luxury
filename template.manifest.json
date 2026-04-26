@@ -155,7 +155,7 @@
           },
           "heroType": {
             "type": "string",
-            "default": "image",
+            "default": "carousel",
             "uiLabel": "Media Type",
             "uiWidget": "select",
             "options": [

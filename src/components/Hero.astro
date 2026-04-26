@@ -19,6 +19,9 @@ export interface Props {
 const { data } = Astro.props;
 const imgSrc = (path: string) => path?.startsWith('http') ? path : `/${path}`;
 
+// Debug: Log the heroType value
+console.log('[Hero] data.heroType:', data.heroType, 'data:', JSON.stringify(data, null, 2));
+
 // Always prepare carousel images for pre-rendering
 const carouselImages = data.images?.length > 0
   ? data.images
@@ -42,7 +45,7 @@ const overlayEnabled = data.overlayEnabled !== false;
   <!-- ═══ Image Mode ═══ -->
   <div
     data-dr-show-when="hero.heroType=image"
-    style={isImage ? '' : 'display:none'}
+    style={isImage ? '' : 'display:none !important'}
     class="absolute inset-0"
     id="hero-image-mode"
   >
@@ -84,7 +87,6 @@ const overlayEnabled = data.overlayEnabled !== false;
 
   <!-- ═══ Video Mode ═══ -->
   <div
-    data-dr-show-when="hero.heroType=video"
     style={isVideo ? '' : 'display:none'}
     class="absolute inset-0"
     id="hero-video-mode"
