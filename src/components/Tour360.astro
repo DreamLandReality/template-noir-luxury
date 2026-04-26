@@ -81,7 +81,7 @@ const isImage = data.tourType === 'image';
 
         <!-- Video Element -->
         <video
-          src={data.tourVideo || 'defaults/demo-video.mp4'}
+          src={imgSrc(data.tourVideo || 'defaults/demo-video.mp4')}
           autoplay={data.videoAutoplay === true}
           muted={data.videoMuted !== false}
           class="w-full h-full object-cover opacity-0 transition-opacity duration-500"

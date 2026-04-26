@@ -98,7 +98,7 @@ const overlayEnabled = data.overlayEnabled !== false;
     </div>
     <!-- Video Element -->
     <video
-      src={`/${data.heroVideo || 'defaults/demo-video.mp4'}`}
+      src={imgSrc(data.heroVideo || 'defaults/demo-video.mp4')}
       autoplay={data.videoAutoplay !== false}
       muted={data.videoMuted !== false}
       loop

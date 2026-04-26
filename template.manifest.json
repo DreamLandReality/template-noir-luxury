@@ -155,6 +155,7 @@
           },
           "heroType": {
             "type": "string",
+            "default": "image",
             "uiLabel": "Media Type",
             "uiWidget": "select",
             "options": [
@@ -225,6 +226,7 @@
           },
           "videoAutoplay": {
             "type": "boolean",
+            "default": false,
             "uiLabel": "Autoplay Video",
             "uiShowWhen": {
               "sibling": "heroType",
@@ -233,6 +235,7 @@
           },
           "videoMuted": {
             "type": "boolean",
+            "default": true,
             "uiLabel": "Mute Video",
             "uiShowWhen": {
               "sibling": "heroType",
@@ -241,6 +244,7 @@
           },
           "mobileLayout": {
             "type": "string",
+            "default": "fullscreen",
             "uiLabel": "Mobile Layout",
             "uiWidget": "select",
             "uiSection": "layout",
@@ -257,6 +261,7 @@
           },
           "overlayEnabled": {
             "type": "boolean",
+            "default": true,
             "uiLabel": "Enable Overlay",
             "description": "Dark overlay on hero background for text readability",
             "uiSection": "layout"
@@ -456,6 +461,7 @@
           },
           "tourType": {
             "type": "string",
+            "default": "image",
             "uiLabel": "Tour Type",
             "uiWidget": "select",
             "options": [
@@ -504,6 +510,7 @@
           },
           "videoAutoplay": {
             "type": "boolean",
+            "default": false,
             "uiLabel": "Autoplay Video",
             "uiShowWhen": {
               "sibling": "tourType",
@@ -512,6 +519,7 @@
           },
           "videoMuted": {
             "type": "boolean",
+            "default": true,
             "uiLabel": "Mute Video",
             "uiShowWhen": {
               "sibling": "tourType",
@@ -743,6 +751,7 @@
         "properties": {
           "previewState": {
             "type": "string",
+            "default": "locked",
             "uiLabel": "Preview State",
             "uiWidget": "select",
             "options": [
