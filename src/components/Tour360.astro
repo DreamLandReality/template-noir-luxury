@@ -14,10 +14,6 @@ export interface Props {
 
 const { data } = Astro.props;
 const imgSrc = (path: string) => path?.startsWith('http') ? path : `/${path}`;
-
-const isIframe = data.tourType === 'iframe';
-const isVideo = data.tourType === 'video';
-const isImage = data.tourType === 'image';
 ---
 
 <section class="py-24 bg-surface" data-dr-section="tour360" id="tour360">
@@ -52,7 +48,6 @@ const isImage = data.tourType === 'image';
       <!-- ═══ Iframe Mode ═══ -->
       <div
         data-dr-show-when="tour360.tourType=iframe"
-        style={isIframe ? '' : 'display:none'}
         class="w-full h-full"
       >
         <iframe
@@ -68,7 +63,6 @@ const isImage = data.tourType === 'image';
       <!-- ═══ Video Mode ═══ -->
       <div
         data-dr-show-when="tour360.tourType=video"
-        style={isVideo ? '' : 'display:none'}
         class="relative w-full h-full"
       >
         <!-- Video Loading Skeleton -->
@@ -97,7 +91,6 @@ const isImage = data.tourType === 'image';
       <!-- ═══ Image Mode ═══ -->
       <div
         data-dr-show-when="tour360.tourType=image"
-        style={isImage ? '' : 'display:none'}
         class="w-full h-full"
       >
         <img
@@ -133,18 +126,15 @@ const isImage = data.tourType === 'image';
 
     <!-- Hint (each line shown/hidden by runtime based on tourType) -->
     <p class="text-muted text-[11px] tracking-[0.2em] uppercase mt-5 text-center font-sans"
-      data-dr-show-when="tour360.tourType=iframe"
-      style={isIframe ? '' : 'display:none'}>
+      data-dr-show-when="tour360.tourType=iframe">
       Navigate to explore every corner of the residence
     </p>
     <p class="text-muted text-[11px] tracking-[0.2em] uppercase mt-5 text-center font-sans"
-      data-dr-show-when="tour360.tourType=video"
-      style={isVideo ? '' : 'display:none'}>
+      data-dr-show-when="tour360.tourType=video">
       Watch the video tour
     </p>
     <p class="text-muted text-[11px] tracking-[0.2em] uppercase mt-5 text-center font-sans"
-      data-dr-show-when="tour360.tourType=image"
-      style={isImage ? '' : 'display:none'}>
+      data-dr-show-when="tour360.tourType=image">
       View the property
     </p>
 

@@ -19,18 +19,14 @@ export interface Props {
 const { data } = Astro.props;
 const imgSrc = (path: string) => path?.startsWith('http') ? path : `/${path}`;
 
-// Always prepare carousel images for pre-rendering
+// Server-side: use manifest data for initial render
+// Runtime handles visibility via data-dr-show-when attributes
 const carouselImages = data.images?.length > 0
   ? data.images
   : [{ src: data.backgroundImage || 'defaults/default-hero.jpg', alt: 'Hero' }];
 
 const sideImages = carouselImages.slice(0, 4);
-const isCarousel = data.heroType === 'carousel';
-const isVideo = data.heroType === 'video';
-const isImage = data.heroType !== 'carousel' && data.heroType !== 'video';
-
 const mobileLayout = data.mobileLayout || 'fullscreen';
-
 const overlayEnabled = data.overlayEnabled !== false;
 ---
 
@@ -42,7 +38,6 @@ const overlayEnabled = data.overlayEnabled !== false;
   <!-- ═══ Image Mode ═══ -->
   <div
     data-dr-show-when="hero.heroType=image"
-    style={isImage ? '' : 'display:none'}
     class="absolute inset-0"
     id="hero-image-mode"
   >
@@ -59,7 +54,6 @@ const overlayEnabled = data.overlayEnabled !== false;
   <!-- ═══ Carousel Mode ═══ -->
   <div
     data-dr-show-when="hero.heroType=carousel"
-    style={isCarousel ? '' : 'display:none'}
     class="absolute inset-0"
     id="hero-carousel-mode"
   >
@@ -85,7 +79,6 @@ const overlayEnabled = data.overlayEnabled !== false;
   <!-- ═══ Video Mode ═══ -->
   <div
     data-dr-show-when="hero.heroType=video"
-    style={isVideo ? '' : 'display:none'}
     class="absolute inset-0"
     id="hero-video-mode"
   >
