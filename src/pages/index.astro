@@ -7,7 +7,7 @@ import PriceUnlock from '../components/PriceUnlock.astro';
 import Brochure from '../components/Brochure.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Testimonials from '../components/Testimonials.astro';
-import { getSectionData, isSectionEnabled, getGateConfig } from '../lib/manifest-loader';
+import { getSectionData, isSectionEnabled, getGateConfigs } from '../lib/manifest-loader';
 
 type SeoData = {
   title?: string;
@@ -18,7 +18,7 @@ type HeroData = {
   overline?: string;
   headline: string;
   subtext: string;
-  heroType: 'video' | 'image' | 'carousel';
+  heroMediaType: 'video' | 'image' | 'carousel';
   backgroundImage: string;
   images: { src: string; alt: string }[];
   heroVideo?: string;
@@ -106,14 +106,14 @@ const priceUnlockData = getSectionData<PriceUnlockData>('price-unlock');
 const brochureData = getSectionData<BrochureData>('brochure');
 const contactFormData = getSectionData<ContactFormData>('contact-form');
 const testimonialsData = getSectionData<TestimonialsData>('testimonials');
-const gateConfig = getGateConfig();
+const gateConfigs = getGateConfigs();
 ---
 
 <BaseLayout
   title={seoData.title || 'Chamage — Luxury Residences'}
   seo={seoData}
   transparentNav={true}
-  gateConfig={gateConfig}
+  gateConfigs={gateConfigs}
 >
   {isSectionEnabled('hero') && <Hero data={heroData} />}
   {isSectionEnabled('tour360') && <Tour360 data={tour360Data} />}

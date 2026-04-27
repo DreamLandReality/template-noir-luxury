@@ -56,7 +56,9 @@ const imgSrc = (path: string) => path?.startsWith('http') ? path : `/${path}`;
       <a
         href={data.brochureFile || '#'}
         download={!!data.brochureFile}
-        data-brochure-link
+        data-gate-trigger="lead-capture"
+        data-gate-action="brochure"
+        data-gate-mode="download"
         class="flex items-center gap-3 px-10 py-4 bg-primary text-background text-[10px] tracking-[0.3em] uppercase hover:bg-gold hover:text-background transition-all duration-300 w-full justify-center mt-2"
       >
         <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
