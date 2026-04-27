@@ -776,7 +776,7 @@
       "schema": {
         "type": "object",
         "properties": {
-          "previewState": {
+          "state": {
             "type": "string",
             "uiLabel": "Preview State",
             "uiWidget": "select",
@@ -868,7 +868,7 @@
       },
       "dataType": "object",
       "data": {
-        "previewState": "locked",
+        "state": "locked",
         "eyebrow": "Pricing",
         "heading": "Exclusive Pricing",
         "priceLabel": "Starting From",

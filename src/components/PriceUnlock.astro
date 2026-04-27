@@ -1,7 +1,7 @@
 ---
 export interface Props {
   data: {
-    previewState?: 'locked' | 'modal' | 'unlocked';
+    state?: 'locked' | 'modal' | 'unlocked';
     eyebrow?: string;
     heading?: string;
     priceLabel?: string;
@@ -60,7 +60,7 @@ const { data } = Astro.props;
         class="font-serif text-4xl md:text-5xl text-primary transition-all duration-700"
         style="filter: blur(14px); user-select: none; pointer-events: none;"
         data-dr-field="price"
-        data-dr-effect-when="price-unlock.previewState=locked|price-unlock.previewState=modal"
+        data-dr-effect-when="price-unlock.state=locked|price-unlock.state=modal"
         data-dr-effect="filter:blur(14px);user-select:none;pointer-events:none"
       >
         {data.price}
@@ -70,7 +70,7 @@ const { data } = Astro.props;
       <div
         id="unlock-btn-wrapper"
         style=""
-        data-dr-hide-when="price-unlock.previewState=unlocked|price-unlock.previewState=modal"
+        data-dr-hide-when="price-unlock.state=unlocked|price-unlock.state=modal"
       >
         <button
           id="unlock-price-btn"
@@ -89,7 +89,7 @@ const { data } = Astro.props;
         id="price-success-wrapper"
         class="text-center"
         style="display: none;"
-        data-dr-show-when="price-unlock.previewState=unlocked"
+        data-dr-show-when="price-unlock.state=unlocked"
       >
         <div class="w-8 h-px mx-auto mb-4" style="background: color-mix(in srgb, var(--accent), transparent 50%);"></div>
         <p
@@ -108,7 +108,7 @@ const { data } = Astro.props;
     id="price-modal"
     class="fixed inset-0 z-[100] bg-background/95 backdrop-blur-md flex items-center justify-center p-4"
     style="display: none;"
-    data-dr-show-when="price-unlock.previewState=modal"
+    data-dr-show-when="price-unlock.state=modal"
     role="dialog"
     aria-modal="true"
     aria-labelledby="price-modal-heading"

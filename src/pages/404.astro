@@ -4,9 +4,14 @@ import { getSectionData } from '../lib/manifest-loader';
 
 const seoData = getSectionData('seo');
 const errorData = getSectionData('error-page');
+
+const notFoundSeo = {
+  ...seoData,
+  noindex: true,
+};
 ---
 
-<BaseLayout title={`${errorData.errorCode} — ${errorData.errorTitle}`} seo={seoData}>
+<BaseLayout title={`${errorData.errorCode} — ${errorData.errorTitle}`} seo={notFoundSeo}>
   <section class="min-h-screen flex items-center justify-center bg-background" data-dr-section="error-page">
     <div class="text-center px-8">
       <p class="text-[10px] tracking-[0.5em] uppercase text-gold mb-6 font-sans">Error</p>
