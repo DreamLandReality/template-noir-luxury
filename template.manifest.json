@@ -188,7 +188,7 @@
             "uiOrder": 4,
             "uiSection": "content"
           },
-          "heroType": {
+          "heroMediaType": {
             "type": "string",
             "uiLabel": "Media Type",
             "uiWidget": "select",
@@ -438,7 +438,7 @@
         "overline": "Luxury Residences",
         "headline": "Chamage",
         "subtext": "Where architectural mastery meets uncompromising luxury. A singular residence designed for those who accept nothing less than perfection.",
-        "heroType": "carousel",
+        "heroMediaType": "carousel",
         "backgroundImage": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-hero.jpg",
         "images": [
           {

@@ -37,7 +37,7 @@ const overlayEnabled = data.overlayEnabled !== false;
 
   <!-- ═══ Image Mode ═══ -->
   <div
-    data-dr-show-when="hero.heroType=image"
+    data-dr-show-when="hero.heroMediaType=image"
     class="absolute inset-0"
     id="hero-image-mode"
   >
@@ -53,7 +53,7 @@ const overlayEnabled = data.overlayEnabled !== false;
 
   <!-- ═══ Carousel Mode ═══ -->
   <div
-    data-dr-show-when="hero.heroType=carousel"
+    data-dr-show-when="hero.heroMediaType=carousel"
     class="absolute inset-0"
     id="hero-carousel-mode"
   >
@@ -78,7 +78,7 @@ const overlayEnabled = data.overlayEnabled !== false;
 
   <!-- ═══ Video Mode ═══ -->
   <div
-    data-dr-show-when="hero.heroType=video"
+    data-dr-show-when="hero.heroMediaType=video"
     class="absolute inset-0"
     id="hero-video-mode"
   >
@@ -164,7 +164,7 @@ const overlayEnabled = data.overlayEnabled !== false;
       <div
         class="hidden lg:flex flex-col gap-3 flex-shrink-0"
         id="side-thumbs"
-        data-dr-show-when="hero.heroType=carousel"
+        data-dr-show-when="hero.heroMediaType=carousel"
         style={sideImages.length <= 1 ? 'display: none !important;' : ''}
       >
         {sideImages.map((img, i) => (
@@ -190,7 +190,7 @@ const overlayEnabled = data.overlayEnabled !== false;
   <div
     class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2"
     id="hero-dots"
-    data-dr-show-when="hero.heroType=carousel"
+    data-dr-show-when="hero.heroMediaType=carousel"
     style={carouselImages.length <= 1 ? 'display: none !important;' : ''}
   >
     {carouselImages.map((_, i) => (
@@ -205,7 +205,7 @@ const overlayEnabled = data.overlayEnabled !== false;
   <!-- Slide Counter (only visible in carousel mode) -->
   <div
     class="absolute bottom-10 right-8 md:right-12 z-20 font-sans text-[11px] tracking-[0.2em] text-primary/35 select-none"
-    data-dr-show-when="hero.heroType=carousel"
+    data-dr-show-when="hero.heroMediaType=carousel"
   >
     <span id="hero-current">01</span>&thinsp;/&thinsp;<span id="hero-total">{String(carouselImages.length).padStart(2, '0')}</span>
   </div>
@@ -442,7 +442,7 @@ const overlayEnabled = data.overlayEnabled !== false;
 
   // Re-init carousel when mode switches make the carousel container visible
   function observeCarouselVisibility() {
-    var carouselWrapper = document.querySelector('[data-dr-show-when="hero.heroType=carousel"]');
+    var carouselWrapper = document.querySelector('[data-dr-show-when="hero.heroMediaType=carousel"]');
     if (!carouselWrapper) return;
 
     var observer = new MutationObserver(function () {
