@@ -18,11 +18,16 @@
       "supabaseAnonKey": null,
       "actions": [
         { "id": "price", "mode": "reveal" },
-        { "id": "brochure", "mode": "download" },
-        { "id": "floor-plan", "mode": "reveal" }
+        { "id": "brochure", "mode": "download" }
       ]
     }
   ],
+  "gateActionOwnership": {
+    "lead-capture": {
+      "price": ["price-unlock"],
+      "brochure": ["brochure"]
+    }
+  },
   "stateTypes": {
     "hero.heroMediaType": {
       "type": "enum",
@@ -128,7 +133,7 @@
       "dataType": "object",
       "enabled": true,
       "data": {
-        "logoText": "CHAMAGE",
+        "logoText": "NOIR",
         "links": [
           {
             "label": "Home",
@@ -420,7 +425,7 @@
       "enabled": true,
       "data": {
         "overline": "Luxury Residences",
-        "headline": "Chamage",
+        "headline": "Noir Luxury",
         "subtext": "Where architectural mastery meets uncompromising luxury. A singular residence designed for those who accept nothing less than perfection.",
         "heroMediaType": "carousel",
         "backgroundImage": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-hero.jpg",
@@ -855,13 +860,13 @@
         "sectionTitle": "What Our Clients Say",
         "items": [
           {
-            "name": "Sarah Mitchell",
+            "name": "Template Client One",
             "photo": null,
             "text": "The attention to detail and quality of finishes exceeded all expectations. This is truly luxury living at its finest.",
             "rating": 5
           },
           {
-            "name": "James Chen",
+            "name": "Template Client Two",
             "photo": null,
             "text": "From the first viewing to move-in, the entire experience was seamless. The team's professionalism is unmatched.",
             "rating": 5
@@ -1069,8 +1074,8 @@
       "dataType": "object",
       "enabled": true,
       "data": {
-        "copyright": "\u00a9 2025 Chamage. All rights reserved.",
-        "branding": "Design by Dream Reality"
+        "copyright": "\u00a9 2025 Noir Luxury Template. All rights reserved.",
+        "branding": "Template by Noir Luxury"
       }
     },
     {
@@ -1273,24 +1278,24 @@
       "dataType": "object",
       "enabled": true,
       "data": {
-        "title": "Chamage \u2014 Noir Luxury Residence",
+        "title": "Noir Luxury Template",
         "description": "An ultra-luxury single-page residence showcasing dark elegance, 360\u00b0 virtual tours, and uncompromising design.",
         "keywords": [
           "luxury residence",
           "noir luxury",
           "ultra-luxury property",
           "luxury real estate",
-          "chamage"
+          "noir luxury template"
         ],
         "image": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-hero.jpg",
-        "imageAlt": "Chamage luxury residence exterior at night",
+        "imageAlt": "Noir Luxury Template residence exterior at night",
         "locale": "en_US",
         "language": "en",
         "canonicalUrl": null,
         "metaPixelId": null,
         "googleAdsId": null,
         "structuredData": {
-          "propertyName": "Chamage",
+          "propertyName": "Noir Luxury Template",
           "propertyType": "Residence",
           "description": "An ultra-luxury single-page residence showcasing dark elegance and uncompromising design.",
           "url": null,
@@ -1301,9 +1306,9 @@
             "currency": "USD"
           },
           "address": {
-            "street": "1 Luxury Boulevard",
-            "locality": "Beverly Hills",
-            "region": "California",
+            "street": "1 Template Boulevard",
+            "locality": "Template District",
+            "region": "Template Region",
             "postalCode": "90210",
             "country": "US"
           },
@@ -1312,8 +1317,8 @@
             "longitude": null
           },
           "developer": {
-            "name": "Dream Reality Group",
-            "url": "https://www.dreamreality.com",
+            "name": "Noir Luxury Template",
+            "url": null,
             "logo": null
           }
         }
