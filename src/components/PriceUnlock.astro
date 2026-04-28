@@ -204,6 +204,18 @@ const { data } = Astro.props;
           </label>
         </div>
 
+        <div
+          hidden
+          role="alert"
+          class="border border-gold/30 bg-gold/5 px-4 py-3 text-sm leading-relaxed text-primary/60"
+          data-gate-feedback="lead-capture"
+          data-gate-feedback-reason="submission_failed"
+        >
+          <p data-gate-feedback-message>
+            We could not submit your details. Please try again.
+          </p>
+        </div>
+
         <button
           type="submit"
           class="bg-gold text-background py-4 text-[10px] font-medium tracking-[0.3em] uppercase mt-6 hover:bg-primary hover:text-background transition-colors duration-300 flex items-center justify-center gap-3 group"

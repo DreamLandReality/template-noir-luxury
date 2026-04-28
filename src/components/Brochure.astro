@@ -69,6 +69,19 @@ const imgSrc = (path: string) => path?.startsWith('http') ? path : `/${path}`;
         </span>
       </a>
 
+      <div
+        hidden
+        role="status"
+        class="w-full border border-gold/30 bg-gold/5 px-5 py-4 text-center text-xs leading-relaxed text-primary/60"
+        data-gate-feedback="lead-capture"
+        data-gate-feedback-action="brochure"
+        data-gate-feedback-reason="download_unavailable"
+      >
+        <p data-gate-feedback-message>
+          Brochure is not available yet. Please contact our advisory team.
+        </p>
+      </div>
+
     </div>
   </div>
 </section>
