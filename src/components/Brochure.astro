@@ -72,14 +72,26 @@ const imgSrc = (path: string) => path?.startsWith('http') ? path : `/${path}`;
       <div
         hidden
         role="status"
-        class="w-full border border-gold/30 bg-gold/5 px-5 py-4 text-center text-xs leading-relaxed text-primary/60"
+        class="w-full max-w-2xl border border-gold/30 bg-gold/5 px-6 py-5 text-left"
         data-gate-feedback="lead-capture"
         data-gate-feedback-action="brochure"
         data-gate-feedback-reason="download_unavailable"
       >
-        <p data-gate-feedback-message>
-          Brochure is not available yet. Please contact our advisory team.
-        </p>
+        <div class="flex items-start gap-4">
+          <div class="mt-0.5 flex h-9 w-9 flex-shrink-0 items-center justify-center border border-gold/40 text-gold">
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+          </div>
+          <div>
+            <p class="mb-2 text-[9px] uppercase tracking-[0.3em] text-gold/80">
+              Request received
+            </p>
+            <p class="text-sm leading-relaxed text-primary/70" data-gate-feedback-message>
+              Thank you. Your details were received, but the brochure is not available yet. Our advisory team will contact you shortly.
+            </p>
+          </div>
+        </div>
       </div>
 
     </div>

@@ -3,12 +3,12 @@ export interface Props {
   data: {
     logoText: string;
     logoImageUrl?: string;
-    links: { label: string; href: string }[];
   };
+  links: { sectionId: string; label: string; href: string; visible: boolean }[];
   transparentNav?: boolean;
 }
 
-const { data, transparentNav = false } = Astro.props;
+const { data, links, transparentNav = false } = Astro.props;
 const imgSrc = (path: string) => path?.startsWith('http') ? path : `/${path}`
 ---
 
@@ -34,14 +34,14 @@ const imgSrc = (path: string) => path?.startsWith('http') ? path : `/${path}`
     )}
 
     <!-- Desktop Links -->
-    <ul class="hidden md:flex items-center space-x-10" data-dr-list="links">
-      {data.links.map((link) => (
-        <li data-dr-list-item>
+    <ul class="hidden md:flex items-center space-x-10">
+      {links.map((link) => (
+        <li data-nav-section={link.sectionId} style={link.visible ? '' : 'display: none;'}>
           <a
             href={link.href}
             class="nav-link relative text-[11px] uppercase tracking-[0.3em] font-light transition-all duration-300"
           >
-            <span data-dr-field="label">{link.label}</span>
+            <span>{link.label}</span>
             <span class="nav-link-underline"></span>
           </a>
         </li>
@@ -65,15 +65,15 @@ const imgSrc = (path: string) => path?.startsWith('http') ? path : `/${path}`
     class="mobile-menu fixed inset-0 z-40 flex flex-col items-center justify-center bg-surface opacity-0 pointer-events-none transition-opacity duration-500"
     id="mobile-menu"
   >
-    <ul class="flex flex-col items-center space-y-8" data-dr-list="links">
-      {data.links.map((link, i) => (
-        <li data-dr-list-item class="overflow-hidden">
+    <ul class="flex flex-col items-center space-y-8">
+      {links.map((link, i) => (
+        <li data-nav-section={link.sectionId} class="overflow-hidden" style={link.visible ? '' : 'display: none;'}>
           <a
             href={link.href}
             class="mobile-link block text-2xl font-serif tracking-[0.2em] uppercase text-muted hover:text-primary transition-all duration-300"
             style={`transition-delay: ${i * 80}ms`}
           >
-            <span data-dr-field="label">{link.label}</span>
+            <span>{link.label}</span>
           </a>
         </li>
       ))}
